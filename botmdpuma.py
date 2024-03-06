@@ -45,6 +45,7 @@ def realtime_ocr():
             # ตรวจสอบผลลัพธ์
             row = cursor.fetchone()
             if row:
+                print(row)
                 cursor.execute("SELECT COUNT(*) FROM Tx_SP_ScanPackDet WHERE Barcode = ?", (barcode,))
                 result = cursor.fetchone()
                 if result[0] == 0:
@@ -63,9 +64,9 @@ def realtime_ocr():
                 print("not found in the database.")
         else:
             print('quantity: '+str(quantity)+' != scanned: '+str(scanned)+' = barcode: '+str(barcode))
-            
+
         # แสดงภาพหน้าจอ (สามารถข้ามขั้นตอนนี้ได้หากไม่ต้องการการแสดงผล)
-        cv2.imshow('Screen', screen_gray)
+        # cv2.imshow('Screen', screen_gray)
 
         # รอคีย์ 'q' เพื่อออกจาก
         if cv2.waitKey(1) == ord('q'):
