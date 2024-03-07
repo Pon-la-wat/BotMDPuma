@@ -79,13 +79,13 @@ def realtime_ocr():
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, GETDATE(), ?, ?, 'BOT', GETDATE())''',
                             (row[6], row[7], row[5], 1, row[1], row[2], 1, row[3], row[4], row[11], row[12], row[13], row[14], row[14], row[14], row[0], row[9]))
                             # ทำการ UPDATE Status
-                            cursor.execute("UPDATE Tx_SP_JobDetInstPackBarcode SET Status = ? WHERE Barcode = ? AND Status IS NULL", ('PK', barcode))
+                            cursor.execute("UPDATE Tx_SP_JobDetInstPackBarcode SET Status = 'PK' WHERE NewBarcode = ? AND Status IS NULL", (barcode))
                             conn.commit()
                             
                             print('update and insert success!')
-                            play_sound('sounds/alert.mp3')
+                            play_sound('../sounds/alert.mp3')
                     else:
-                        print("not found in the database.")
+                        print("duplicate information.")
                 else:
                     print('quantity: '+str(quantity)+' != scanned: '+str(scanned)+' = barcode: '+str(barcode))
             except UnicodeEncodeError:
@@ -100,8 +100,8 @@ def realtime_ocr():
             break
 
     # ปิดการเชื่อมต่อ
-    cursor.close()
-    conn.close()
+    # cursor.close()
+    # conn.close()
     # cv2.destroyAllWindows()
     
 # เริ่มต้นการทำงาน
